@@ -3,4 +3,5 @@ name = "irmatch"
 version = "0.1.0"
 authors = ["Alexander Vo <randomcivvy0121@gmail.com>"]
 
-[dependencies]
+license="MIT"
+repository="https://github.com/InnPatron/irmatch"
