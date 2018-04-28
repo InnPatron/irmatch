@@ -1,12 +1,12 @@
 #[macro_export]
 macro_rules! irmatch {
-    ($v: expr; $p: pat => $r: expr) => {{
+    ($v: expr; $( $p: pat => $r: expr ),+) => {{
         match $v {
-            $p => $r,
+            $($p => $r,)+
 
             _ => {
                 unreachable!("Failed to match {} at {}:{}",
-                               stringify!($p), file!(), line!())
+                               stringify!($($p)+), file!(), line!())
             }
         }
 
@@ -65,5 +65,22 @@ mod tests {
 
         let t = T::A(5);
         let v = irmatch!(t; T::E{..} => ());
+    }
+
+    #[test]
+    fn multi_pattern() {
+        let t = T::B(5, 10);
+        let v = irmatch!(t; T::B(..) => (), T::A(..) => ());
+
+        assert_eq!((), v);
+    }
+
+    #[test]
+    #[should_panic]
+    fn multi_pattern_fail() {
+        let t = T::B(5, 10);
+        let v = irmatch!(t; T::D => (), T::A(..) => ());
+
+        assert_eq!((), v);
     }
 }
