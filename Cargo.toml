@@ -1,6 +1,6 @@
 [package]
 name = "irmatch"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Alexander Vo <randomcivvy0121@gmail.com>"]
 
 description = "Macro to match against a guaranteed enum variant"
